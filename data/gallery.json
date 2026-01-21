@@ -5,7 +5,7 @@
       "title": "Operating System Installation",
       "category": "Software & OS",
       "description": "Professional installation and configuration of Windows or macOS by our expert technicians.",
-      "image_url": "assets/images/teknisi-perempuan-instalasi-sistem-operasi.png",
+      "image_url": "assets/images/teknisi-perempuan-instalasi-sistem-operasi.webp",
       "tags": ["OS", "Installation", "Software"]
     },
     {
@@ -13,7 +13,7 @@
       "title": "Linux Distribution Setup",
       "category": "Software & OS",
       "description": "Specialized installation of Ubuntu and other Linux distributions for secure and open-source computing.",
-      "image_url": "assets/images/ubuntu-os-laptop.png",
+      "image_url": "assets/images/ubuntu-os-laptop.webp",
       "tags": ["Linux", "Ubuntu", "OS"]
     },
     {
@@ -21,7 +21,7 @@
       "title": "Printer Ink & Maintenance",
       "category": "Cleaning & Services",
       "description": "Refilling ink tanks and comprehensive printer head cleaning to ensure crisp print quality.",
-      "image_url": "assets/images/isi-tinta-printer.png",
+      "image_url": "assets/images/isi-tinta-printer.webp",
       "tags": ["Printer", "Maintenance", "Ink"]
     },
     {
@@ -29,7 +29,7 @@
       "title": "LCD & LED Screen Repair",
       "category": "Hardware Specialist",
       "description": "Replacing cracked or flickering screens for All-in-One PCs and laptops with high-quality displays.",
-      "image_url": "assets/images/lcd-repair.png",
+      "image_url": "assets/images/lcd-repair.webp",
       "tags": ["Hardware", "LCD", "Screen"]
     },
     {
@@ -37,7 +37,7 @@
       "title": "Microsoft Office Optimization",
       "category": "Software & OS",
       "description": "Licensing and configuration of productivity suites to ensure smooth workflow and performance.",
-      "image_url": "assets/images/laptop-mockup-ms-office.png",
+      "image_url": "assets/images/laptop-mockup-ms-office.webp",
       "tags": ["Software", "Office", "Productivity"]
     },
     {
@@ -45,7 +45,7 @@
       "title": "Professional Technical Support",
       "category": "Software & OS",
       "description": "Expert female technicians providing precise software troubleshooting and OS deployment.",
-      "image_url": "assets/images/teknisi-perempuan-instalasi-sistem-operasi.png",
+      "image_url": "assets/images/windows-recovery.webp",
       "tags": ["Expert", "Technical", "OS"]
     },
     {
@@ -53,7 +53,7 @@
       "title": "Open Source Configuration",
       "category": "Software & OS",
       "description": "Setting up Linux environments for developers and users seeking privacy-focused operating systems.",
-      "image_url": "assets/images/ubuntu-os-laptop.png",
+      "image_url": "assets/images/ubuntu-os-laptop.webp",
       "tags": ["Linux", "Maintenance", "Security"]
     },
     {
@@ -61,7 +61,7 @@
       "title": "Printer Repair Services",
       "category": "Hardware Specialist",
       "description": "Fixing mechanical issues and ink flow problems in various printer brands and models.",
-      "image_url": "assets/images/isi-tinta-printer.png",
+      "image_url": "assets/images/isi-tinta-printer.webp",
       "tags": ["Hardware", "Printer", "Repair"]
     }
   ]
