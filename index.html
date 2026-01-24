@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="id" x-data="{ 
     darkMode: localStorage.getItem('theme') === null ? true : (localStorage.getItem('theme') === 'dark'),
-    activeTab: 'services',
-    toggleTheme() {
-        this.darkMode = !this.darkMode;
-        localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
-    }
-}" :class="{ 'dark': darkMode }">
+        activeTab: 'services',
+        toggleTheme() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+        }
+    }" :class="{ 'dark': darkMode }">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Jayapura Service - Servis Laptop, MacBook & PC Transparan di Jayapura</title>
+
+    <link rel="icon" type="image/png" href="./assets/images/logo.png">
+
+    <link rel="apple-touch-icon" href="./assets/images/logo.png">
+
+    <link rel="shortcut icon" href="./assets/images/logo.png" type="image/x-icon">
+
+
     <meta name="title" content="Jayapura Service - Servis Laptop, MacBook & PC Transparan di Jayapura">
     <meta name="description"
         content="Jasa perbaikan laptop, MacBook, PC, dan printer di Padang Bulan, Jayapura. Diagnosa transparan, jujur, dan bergaransi. Spesialis hardware & software sejak 2023.">
@@ -123,7 +131,7 @@
 
             <div class="flex items-center gap-4 text-left">
                 <div class="flex-shrink-0">
-                    <img src="assets/images/logo.png" alt="Logo" class="w-12 h-12 md:w-16 md:h-16 object-contain">
+                    <img src="./assets/images/logo.png" alt="Logo" class="w-12 h-12 md:w-16 md:h-16 object-contain">
                 </div>
                 <div class="flex flex-col">
                     <h1
