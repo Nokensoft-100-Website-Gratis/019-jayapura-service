@@ -140,7 +140,7 @@
                     </h1>
                     <p
                         class="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-widest mt-1">
-                        Padang Bulan, Jayapura
+                        Belakang Kampus USTJ, Hedam, Kec. Heram, Kota Jayapura, Papua 99331, Indonesia
                     </p>
                 </div>
             </div>
@@ -175,8 +175,8 @@
             </div>
         </div>
     </header>
-    
-    
+
+
     <main class="max-w-7xl mx-auto px-8 py-8">
 
         <div class="hidden md:flex justify-between items-end mb-12 border-b border-gray-100 dark:border-gray-800 pb-4">
@@ -497,8 +497,8 @@
                             <div>
                                 <h4 class="font-bold text-sm uppercase tracking-wider text-gray-900 dark:text-white">
                                     Alamat</h4>
-                                <p class="text-gray-600 dark:text-gray-400 text-sm">Padang Bulan (Turunan Ale-Ale),
-                                    Distrik Heram, Jayapura</p>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Belakang Kampus USTJ, Hedam, Kec.
+                                    Heram, Kota Jayapura, Papua 99331, Indonesia</p>
                             </div>
                         </div>
 
@@ -510,20 +510,47 @@
                             <div>
                                 <h4 class="font-bold text-sm uppercase tracking-wider text-gray-900 dark:text-white">
                                     Email</h4>
-                                <p class="text-gray-600 dark:text-gray-400 text-sm">jayapuraservicecomputer@gmail.com</p>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">jayapuraservicecomputer@gmail.com
+                                </p>
                             </div>
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <div
-                                class="w-10 h-10 flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-none flex items-center justify-center text-[#D4AF37] border border-gray-200 dark:border-gray-700">
-                                <i class="fa-solid fa-phone"></i>
+
+
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-10 h-10 flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-none flex items-center justify-center text-[#D4AF37] border border-gray-200 dark:border-gray-700">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div x-data="{ 
+                                        phone: '082197755612', 
+                                        copied: false,
+                                        copyToClipboard() {
+                                            navigator.clipboard.writeText(this.phone);
+                                            this.copied = true;
+                                            setTimeout(() => this.copied = false, 2000);
+                                        }
+                                    }" class="flex flex-col">
+                                    <h4
+                                        class="font-bold text-sm uppercase tracking-wider text-gray-900 dark:text-white">
+                                        Nomor HP
+                                    </h4>
+                                    <div class="flex items-center gap-3">
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm font-mono" x-text="phone">
+                                        </p>
+                                        <button @click="copyToClipboard()"
+                                            class="text-xs flex items-center gap-1.5 px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:text-[#D4AF37] transition-all rounded-none"
+                                            :class="copied ? 'text-green-500 border-green-500' : 'text-gray-500'">
+
+                                            <i :class="copied ? 'fa-solid fa-check' : 'fa-solid fa-copy'"></i>
+                                            <span x-text="copied ? 'Tersalin!' : 'Salin'"></span>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-sm uppercase tracking-wider text-gray-900 dark:text-white">
-                                    Nomor HP</h4>
-                                <p class="text-gray-600 dark:text-gray-400 text-sm">082197755612</p>
-                            </div>
+
+
                         </div>
                     </div>
 
@@ -534,6 +561,9 @@
                     </a>
                 </div>
 
+
+
+
                 <div
                     class="bg-gray-50 dark:bg-gray-800/40 p-8 rounded-none border border-gray-100 dark:border-gray-700 shadow-sm">
                     <h3 class="text-xl font-bold mb-6 flex items-center gap-2 uppercase tracking-tight">
@@ -541,10 +571,12 @@
                     </h3>
                     <div class="space-y-4">
                         <template x-for="jadwal in [
-                    { hari: 'Senin - Jumat', jam: '09:00 - 18:00' },
-                    { hari: 'Sabtu', jam: '10:00 - 16:00' },
-                    { hari: 'Minggu / Tgl Merah', jam: 'Tutup' }
-                ]">
+                                { hari: 'Senin - Rabu', jam: '09:00 - 17:00' },
+                                { hari: 'Kamis', jam: '09:00 - 15:00' },
+                                { hari: 'Jumat', jam: '09:00 - 17:00' },
+                                { hari: 'Sabtu', jam: '13:00 - 17:00' },
+                                { hari: 'Minggu / Tgl Merah', jam: 'Tutup' }
+                            ]">
                             <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
                                 <span class="text-sm font-medium text-gray-500 uppercase tracking-tighter"
                                     x-text="jadwal.hari"></span>
@@ -559,9 +591,17 @@
                     </p>
                 </div>
 
+
+
+
+
                 <div
                     class="h-[350px] rounded-none overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm group">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174379.64069204594!2d140.59862572943055!3d-2.5651354007061786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686c581e4ec6ff6b%3A0x26030bfcc0920592!2sJayapura%2C%20Kota%20Jayapura%2C%20Papua!5e1!3m2!1sid!2sid!4v1768989925665!5m2!1sid!2sid" width="100%" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3300.0259216804952!2d140.65831014394044!3d-2.6047312056280107!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686cf5bc1bacda07%3A0x5ee415aa9b7e34e1!2sJayapura%20Service%20Komputer!5e1!3m2!1sid!2sid!4v1769231109532!5m2!1sid!2sid"
+                        width="100%" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
             </div>
