@@ -1,334 +1,592 @@
 <!DOCTYPE html>
-<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'light' ? false : true }" :class="{ 'dark': darkMode }">
+<html lang="id" x-data="{ 
+    darkMode: localStorage.getItem('theme') === null ? true : (localStorage.getItem('theme') === 'dark'),
+    activeTab: 'services',
+    toggleTheme() {
+        this.darkMode = !this.darkMode;
+        localStorage.setItem('theme', this.darkMode ? 'dark' : 'light');
+    }
+}" :class="{ 'dark': darkMode }">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jayapura Service</title>
     
+    <title>Jayapura Service - Servis Laptop, MacBook & PC Transparan di Jayapura</title>
+    <meta name="title" content="Jayapura Service - Servis Laptop, MacBook & PC Transparan di Jayapura">
+    <meta name="description" content="Jasa perbaikan laptop, MacBook, PC, dan printer di Padang Bulan, Jayapura. Diagnosa transparan, jujur, dan bergaransi. Spesialis hardware & software sejak 2023.">
+    <meta name="keywords" content="servis laptop jayapura, service laptop jayapura, service center macbook jayapura, perbaikan komputer jayapura, servis printer jayapura, rakit pc jayapura, jayapura service padang bulan">
+    <meta name="author" content="Jayapura Service">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jayapuraservice.com/">
+    <meta property="og:title" content="Jayapura Service - Solusi Servis Laptop & PC Transparan">
+    <meta property="og:description" content="Perbaikan laptop dan PC dengan diagnosa terbuka di Jayapura. Hubungi kami untuk konsultasi gratis!">
+    <meta property="og:image" content="https://jayapuraservice.com/assets/images/og-image.jpg"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Jayapura Service - Servis Laptop & PC Jayapura">
+    <meta property="twitter:description" content="Layanan perbaikan perangkat IT profesional di Padang Bulan, Jayapura. Jujur dan Terpercaya.">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Jayapura Service",
+      "image": "https://jayapuraservice.com/assets/images/logo.png",
+      "@id": "",
+      "url": "https://jayapuraservice.com",
+      "telephone": "+62821XXXXXXXX", 
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Padang Bulan, Turunan Ale-Ale, Distrik Heram",
+        "addressLocality": "Jayapura",
+        "addressRegion": "Papua",
+        "postalCode": "99351",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -2.5937, 
+        "longitude": 140.6725
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "10:00",
+          "closes": "16:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/jayapuraservice",
+        "https://www.instagram.com/jayapuraservice"
+      ]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
         body { transition: background-color 0.3s, color 0.3s; }
-
-        /* --- CUSTOM GOOGLE TRANSLATE STYLE --- */
-        .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span {
-            display: none !important;
-        }
+        .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span { display: none !important; }
         body { top: 0px !important; }
-
         #google_translate_element select {
-            background-color: transparent;
-            color: inherit;
+            background-color: transparent; color: inherit;
             border: 1px solid rgba(156, 163, 175, 0.4);
-            border-radius: 9999px;
-            padding: 6px 16px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.3s ease;
-            appearance: none;
-            -webkit-appearance: none;
+            border-radius: 9999px; padding: 4px 12px; font-size: 11px;
+            cursor: pointer; outline: none;
         }
-
-        #google_translate_element select:hover {
-            border-color: #3b82f6;
-            background-color: rgba(59, 130, 246, 0.05);
-        }
-
-        .dark #google_translate_element select {
-            border-color: rgba(75, 85, 99, 1);
-        }
-
-        /* Hilangkan tooltip pop-up Google */
-        .goog-te-balloon-frame { display: none !important; }
-        font { background-color: transparent !important; box-shadow: none !important; }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-white dark:bg-[#0d121f] text-black dark:text-white font-sans antialiased">
-    
 
-    <header class="flex justify-between items-center px-8 py-10 max-w-7xl mx-auto overflow-hidden">
-        <div class="flex flex-col">
-            <div class="text-2xl font-bold tracking-tighter leading-none mb-2 uppercase">
-                Jayapura Service
+<body class="bg-white dark:bg-[#0d121f] text-black dark:text-white font-sans antialiased pb-20 md:pb-0">
+
+    <header
+        class="sticky top-0 z-50 bg-white/90 dark:bg-[#0d121f]/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+        <div class="flex justify-between items-center px-6 py-4 md:py-6 max-w-7xl mx-auto">
+
+            <div class="flex items-center gap-4 text-left">
+                <div class="flex-shrink-0">
+                    <img src="assets/images/logo.png" alt="Logo" class="w-12 h-12 md:w-16 md:h-16 object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-lg md:text-xl font-bold tracking-tighter leading-none uppercase">
+                        Jayapura Service
+                    </h1>
+                    <p
+                        class="text-[10px] md:text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-widest mt-1">
+                        Padang Bulan, Jayapura
+                    </p>
+                </div>
             </div>
-            <p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-widest mb-4">
-                Jl. Raya Abepura No. 123, Jayapura, Papua
-            </p>
-            
-            <div class="flex space-x-5 text-lg">
-                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-youtube"></i></a>
-            </div>
-        </div>
 
-        <div class="flex items-center space-x-6 flex-1 justify-end">
-            <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
-                    class="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition shadow-sm">
-                <i x-show="!darkMode" class="fa-solid fa-moon text-gray-800"></i>
-                <i x-show="darkMode" class="fa-solid fa-sun text-yellow-400"></i>
-            </button>
+            <div class="flex items-center gap-6">
 
-            <div class="hidden md:block w-2/3 lg:w-1/2">
-                <img 
-                    src="https://cdn.dcodegroup.com/69406e2737250marvin-meyer-syto3xs06fu-unsplashjpg.jpg" 
-                    alt="Jayapura Service Banner" 
-                    class="w-full h-[100px] object-cover rounded-xl grayscale opacity-80 hover:grayscale-0 transition duration-700 shadow-lg"
-                >
+                <div class="hidden md:flex flex-1 justify-center">
+                    <div class="flex space-x-6 text-xl">
+                        <a href="#" title="WhatsApp Channel"
+                            class="text-gray-400 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="#" title="Instagram"
+                            class="text-gray-400 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" title="Facebook"
+                            class="text-gray-400 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" title="TikTok"
+                            class="text-gray-400 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" title="YouTube"
+                            class="text-gray-400 hover:text-[#D4AF37] transition-all duration-300 hover:scale-110">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')"
+                    class="p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition border border-gray-200 dark:border-gray-700">
+                    <i x-show="!darkMode" class="fa-solid fa-moon text-gray-800"></i>
+                    <i x-show="darkMode" class="fa-solid fa-sun text-yellow-400"></i>
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 py-4" x-data="{ activeTab: 'careers' }">
+    <main class="max-w-7xl mx-auto px-8 py-8">
+
+        <div class="hidden md:flex justify-between items-end mb-12 border-b border-gray-100 dark:border-gray-800 pb-4">
+            <div class="flex space-x-8">
+                <template x-for="tab in [
+                    {id: 'services', label: 'Layanan Kami'}, 
+                    {id: 'about', label: 'Tentang Kami'}, 
+                    {id: 'gallery', label: 'Galeri Kerja'}, 
+                    {id: 'contact', label: 'Hubungi Kami'}
+                ]">
+                    <button @click="activeTab = tab.id"
+                        :class="activeTab === tab.id ? 'text-black dark:text-white font-bold' : 'text-gray-400 hover:text-black dark:hover:text-white'"
+                        class="group relative pb-4 transition-all duration-300 tracking-wide text-sm whitespace-nowrap">
+                        <span x-text="tab.label" class="uppercase"></span>
+                        <span :class="activeTab === tab.id ? 'w-full' : 'w-0 group-hover:w-full'"
+                            class="absolute bottom-0 left-0 h-[2px] bg-[#D4AF37] transition-all duration-300">
+                        </span>
+                    </button>
+                </template>
+            </div>
+            <div class="flex items-center space-x-3 mb-3">
+                <i class="fa-solid fa-language text-gray-400"></i>
+                <div id="google_translate_element"></div>
+            </div>
+        </div>
+
+
+
+
         
-        <div class="flex justify-between items-end mb-12 border-b border-gray-200 dark:border-gray-800 pb-4">
-    <div class="flex space-x-8">
-        <template x-for="tab in [
-            {id: 'work', label: 'selected work'}, 
-            {id: 'services', label: 'our services'}, 
-            {id: 'careers', label: 'join careers'}, 
-            {id: 'contact', label: 'get in touch'}
-        ]">
-            <button @click="activeTab = tab.id" 
-                :class="activeTab === tab.id ? 'text-black dark:text-white font-bold' : 'text-gray-400 hover:text-black dark:hover:text-white'" 
-                class="group relative pb-4 capitalize transition-all duration-300 tracking-wide text-sm whitespace-nowrap">
-                
-                <span x-text="tab.label"></span>
 
-                <span 
-                    :class="activeTab === tab.id ? 'w-full' : 'w-0 group-hover:w-full'" 
-                    class="absolute bottom-0 left-0 h-[2px] bg-black dark:bg-white transition-all duration-300 ease-in-out">
-                </span>
-            </button>
-        </template>
+
+        <section x-show="activeTab === 'services'" x-transition x-cloak class="py-10">
+    <h2 class="text-4xl font-bold mb-4 text-center md:text-left">Layanan Spesialis</h2>
+    <p class="text-gray-500 mb-12">Solusi perbaikan laptop, PC, dan printer dengan diagnosa transparan.</p>
+
+    <div class="mb-12 p-6 bg-gray-50 dark:bg-gray-800/50 rounded-3xl border-l-4 border-[#D4AF37]">
+        <h4 class="text-sm uppercase tracking-widest font-bold mb-2 text-[#D4AF37]">Perangkat yang Dilayani:</h4>
+        <p class="text-lg font-semibold">Laptop (Windows & MacBook), PC Desktop & All in One, Printer, Rakitan PC Custom, dan Jaringan Komputer.</p>
     </div>
 
-    <div class="flex items-center space-x-3 mb-3">
-        <i class="fa-solid fa-language text-gray-400"></i>
-        <div id="google_translate_element"></div>
-    </div>
-</div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        <section 
-            x-show="activeTab === 'work'" 
-            x-transition 
-            class="py-10"
-            x-data="{ galleryItems: [] }"
-            x-init="fetch('data/gallery.json').then(res => res.json()).then(data => galleryItems = data.gallery)"
-        >
-            <h2 class="text-4xl font-bold mb-12">Selected Work</h2>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                
-                <template x-for="item in galleryItems" :key="item.id">
-                    <div class="group cursor-pointer relative overflow-hidden rounded-3xl bg-gray-100 dark:bg-gray-800 border border-gray-100 dark:border-gray-800 aspect-square">
-                        
-                        <div class="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2" x-text="item.category"></p>
-                            <h3 class="text-white text-xl font-bold leading-tight mb-2" x-text="item.title"></h3>
-                            <p class="text-gray-300 text-xs line-clamp-2" x-text="item.description"></p>
+        <div class="p-8 border border-gray-200 dark:border-gray-800 rounded-3xl transition-all duration-500 group hover:border-[#D4AF37] hover:shadow-sm bg-white dark:bg-transparent flex flex-col h-full">
+            <div class="mb-6 overflow-hidden rounded-2xl h-48 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?q=80&w=600&auto=format&fit=crop"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition duration-500">
+            </div>
+            <h3 class="text-2xl font-bold mb-4 group-hover:text-[#D4AF37] transition-colors">Layanan Hardware</h3>
+            <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-3 font-medium mb-8 flex-grow">
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Penggantian Komponen & LED</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Perbaikan Engsel & Keyboard</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Cleaning & Ganti Thermal Paste</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Servis Motherboard & Fleksibel</li>
+            </ul>
+            <a href="https://wa.me/62821XXXXXXXX?text=Halo%20Jayapura%20Service,%20saya%20ingin%20tanya%20mengenai%20*Perbaikan%20Hardware*%20(Ganti%20LCD/Keyboard/Servis%20Mesin)." 
+               class="inline-flex items-center justify-center gap-2 w-full py-4 bg-gray-100 dark:bg-gray-800 hover:bg-[#D4AF37] hover:text-white rounded-2xl font-bold transition-all duration-300 text-[#D4AF37]">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                Pesan Servis Hardware
+            </a>
+        </div>
+
+        <div class="p-8 border border-gray-200 dark:border-gray-800 rounded-3xl transition-all duration-500 group hover:border-[#D4AF37] hover:shadow-sm bg-white dark:bg-transparent flex flex-col h-full">
+            <div class="mb-6 overflow-hidden rounded-2xl h-48 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=600&auto=format&fit=crop"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition duration-500">
+            </div>
+            <h3 class="text-2xl font-bold mb-4 group-hover:text-[#D4AF37] transition-colors">Layanan Software</h3>
+            <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-3 font-medium mb-8 flex-grow">
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Instalasi OS (Win/Mac)</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Aplikasi Perkantoran & Desain</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Update Driver & Optimasi</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Instalasi Antivirus & Keamanan</li>
+            </ul>
+            <a href="https://wa.me/62821XXXXXXXX?text=Halo%20Jayapura%20Service,%20saya%20ingin%20tanya%20layanan%20*Instalasi%20Software/OS*." 
+               class="inline-flex items-center justify-center gap-2 w-full py-4 bg-gray-100 dark:bg-gray-800 hover:bg-[#D4AF37] hover:text-white rounded-2xl font-bold transition-all duration-300 text-[#D4AF37]">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                Instal Software
+            </a>
+        </div>
+
+        <div class="p-8 border border-gray-200 dark:border-gray-800 rounded-3xl transition-all duration-500 group hover:border-[#D4AF37] hover:shadow-sm bg-white dark:bg-transparent flex flex-col h-full">
+            <div class="mb-6 overflow-hidden rounded-2xl h-48 bg-gray-100">
+                <img src="https://images.unsplash.com/photo-1563770660941-20978e870e26?q=80&w=600&auto=format&fit=crop"
+                    class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition duration-500">
+            </div>
+            <h3 class="text-2xl font-bold mb-4 group-hover:text-[#D4AF37] transition-colors">Layanan Tambahan</h3>
+            <ul class="text-gray-600 dark:text-gray-400 text-sm space-y-3 font-medium mb-8 flex-grow">
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Recovery Data Hilang</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Service Panggilan (Home Service)</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Layanan Antar-Jemput</li>
+                <li class="flex items-start"><i class="fa-solid fa-circle-check mt-1 mr-3 text-[#D4AF37]"></i>Rakit PC & Jaringan</li>
+            </ul>
+            <a href="https://wa.me/62821XXXXXXXX?text=Halo%20Jayapura%20Service,%20saya%20tertarik%20dengan%20*Layanan%20Khusus*%20(Recovery%20Data/Home%20Service/Rakit%20PC)." 
+               class="inline-flex items-center justify-center gap-2 w-full py-4 bg-gray-100 dark:bg-gray-800 hover:bg-[#D4AF37] hover:text-white rounded-2xl font-bold transition-all duration-300 text-[#D4AF37]">
+                <i class="fa-brands fa-whatsapp text-xl"></i>
+                Pesan Layanan Khusus
+            </a>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+        <section x-show="activeTab === 'about'" x-transition x-cloak class="py-10">
+            <div class="max-w-3xl mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Sejarah & Profil</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                    <span class="text-[#D4AF37] font-bold">Jayapura Service</span> berdiri pada <span
+                        class="font-bold text-black dark:text-white">Februari 2023</span> di Padang Bulan, turunan
+                    Ale-Ale. Lahir dari kebutuhan akan layanan servis yang jujur, usaha ini bermula dari layanan mandiri
+                    yang kini berkembang dengan fondasi utama kejujuran dan tanggung jawab.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div
+                        class="p-8 bg-gray-50 dark:bg-gray-800/40 rounded-3xl border border-gray-100 dark:border-gray-800">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-id-card text-[#D4AF37]"></i> Profil Singkat
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                            Kami adalah spesialis perbaikan laptop dan PC yang mengedepankan diagnosa transparan. Setiap
+                            proses dilakukan secara terbuka tanpa penggantian komponen yang tidak diperlukan, memastikan
+                            pelanggan merasa tenang dan percaya.
+                        </p>
+                    </div>
+
+                    <div class="p-8 border border-[#D4AF37]/20 rounded-3xl">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-3">
+                            <i class="fa-solid fa-eye text-[#D4AF37]"></i> Visi
+                        </h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm italic">
+                            "Menjadi layanan perbaikan dan perawatan laptop serta PC yang terpercaya, transparan, dan
+                            berorientasi pada kebutuhan nyata pengguna."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-bullseye text-[#D4AF37]"></i> Misi Kami
+                        </h3>
+                        <ul class="space-y-4">
+                            <template x-for="misi in [
+                        'Layanan jujur dan transparan dari diagnosa hingga penyelesaian.',
+                        'Penjelasan teknis dengan bahasa yang mudah dipahami.',
+                        'Perbaikan tepat guna (sesuai persetujuan pelanggan).',
+                        'Menjaga profesionalisme, kerapian, dan tanggung jawab.',
+                        'Membangun kepercayaan jangka panjang melalui integritas.'
+                    ]">
+                                <li class="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                                    <i class="fa-solid fa-check text-[#D4AF37] mt-1"></i>
+                                    <span x-text="misi"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 border-t border-gray-100 dark:border-gray-800">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-3">
+                            <i class="fa-solid fa-star text-[#D4AF37]"></i> Keunggulan Layanan
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <template x-for="unggulan in [
+                        'Diagnosa Terbuka',
+                        'Fokus Solusi Nyata',
+                        'Tanpa Biaya Tersembunyi',
+                        'Pengerjaan Rapi'
+                    ]">
+                                <div
+                                    class="flex items-center gap-2 p-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 text-xs font-bold uppercase tracking-wider">
+                                    <i class="fa-solid fa-shield-halved text-[#D4AF37]"></i>
+                                    <span x-text="unggulan"></span>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section x-show="activeTab === 'gallery'" x-transition x-cloak class="py-10">
+            <div class="mb-12">
+                <h2 class="text-4xl font-bold mb-4">Dokumentasi Kerja</h2>
+                <p class="text-gray-500">Kumpulan dokumentasi pengerjaan servis dan solusi IT pelanggan kami.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8">
+
+                <div
+                    class="group relative overflow-hidden rounded-3xl aspect-video border-2 border-transparent hover:border-[#D4AF37] transition-all duration-500 shadow-lg">
+                    <img src="assets/images/teknisi-perempuan-instalasi-sistem-operasi.webp" alt="Instalasi Sistem"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h4 class="text-white font-bold text-xl mb-1 uppercase tracking-tight">Instalasi Sistem Operasi
+                        </h4>
+                        <p class="text-white/80 text-sm">Proses instalasi dan konfigurasi OS untuk performa maksimal.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="group relative overflow-hidden rounded-3xl aspect-video border-2 border-transparent hover:border-[#D4AF37] transition-all duration-500 shadow-lg">
+                    <img src="assets/images/ubuntu-os-laptop.webp" alt="Ubuntu OS"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h4 class="text-white font-bold text-xl mb-1 uppercase tracking-tight">Setup Linux Open Source
+                        </h4>
+                        <p class="text-white/80 text-sm">Konfigurasi Ubuntu OS untuk kebutuhan development dan keamanan.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="group relative overflow-hidden rounded-3xl aspect-video border-2 border-transparent hover:border-[#D4AF37] transition-all duration-500 shadow-lg">
+                    <img src="assets/images/laptop-mockup-ms-office.webp" alt="MS Office"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h4 class="text-white font-bold text-xl mb-1 uppercase tracking-tight">Instalasi Software Kantor
+                        </h4>
+                        <p class="text-white/80 text-sm">Penyediaan aplikasi produktivitas dan Microsoft Office asli.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="group relative overflow-hidden rounded-3xl aspect-video border-2 border-transparent hover:border-[#D4AF37] transition-all duration-500 shadow-lg">
+                    <img src="assets/images/isi-tinta-printer.webp" alt="Isi Tinta"
+                        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                        <h4 class="text-white font-bold text-xl mb-1 uppercase tracking-tight">Perawatan & Isi Tinta
+                            Printer</h4>
+                        <p class="text-white/80 text-sm">Servis printer berkala dan pengisian tinta kualitas terbaik.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <section x-show="activeTab === 'contact'" x-transition x-cloak class="py-10">
+            <div class="mb-12">
+                <h2 class="text-4xl font-bold mb-4">Hubungi Kami</h2>
+                <p class="text-gray-500">Kami siap membantu perbaikan perangkat Anda. Silakan hubungi atau kunjungi
+                    workshop kami.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[#D4AF37]">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm uppercase tracking-wider">Alamat</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">Padang Bulan (Turunan Ale-Ale),
+                                    Distrik Heram, Jayapura</p>
+                            </div>
                         </div>
 
-                        <div class="absolute inset-0 bg-black-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
-                        
-                        <img 
-                            :src="item.image_url" 
-                            :alt="item.title"
-                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 ease-in-out"
-                        >
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[#D4AF37]">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm uppercase tracking-wider">Email</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">kontak@jayapuraservice.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="w-10 h-10 flex-shrink-0 bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center text-[#D4AF37]">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm uppercase tracking-wider">Nomor HP</h4>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm">0821-xxxx-xxxx</p>
+                            </div>
+                        </div>
                     </div>
-                </template>
 
-            </div>
-        </section>
-
-        
-        
-
-        <section x-show="activeTab === 'services'" x-transition class="py-10">
-            <h2 class="text-4xl font-bold mb-12 text-center md:text-left">Our Expertise</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                
-                <div class="p-10 border border-gray-200 dark:border-gray-800 rounded-3xl transition duration-500 text-center group hover:border-yellow-500">
-                    <div class="text-black dark:text-white mb-6 text-6xl transition duration-500 group-hover:text-yellow-500">
-                        <i class="fa-solid fa-microchip"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-black dark:text-white transition duration-500 group-hover:text-yellow-500">
-                        Hardware Services
-                    </h3>
-                    <ul class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 inline-block text-left">
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Component replacement</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Laptop hinge & LED repair</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Deep cleaning & Thermal paste</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Flex cable & internal repairs</li>
-                    </ul>
-                </div>
-
-                <div class="p-10 border border-gray-200 dark:border-gray-800 rounded-3xl transition duration-500 text-center group hover:border-blue-500">
-                    <div class="text-black dark:text-white mb-6 text-6xl transition duration-500 group-hover:text-blue-500">
-                        <i class="fa-solid fa-compact-disc"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-black dark:text-white transition duration-500 group-hover:text-blue-500">
-                        Software Services
-                    </h3>
-                    <ul class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 inline-block text-left">
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>OS Reinstall (Win, Linux, Mac)</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Office & productivity apps</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Driver updates & Optimization</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Antivirus & system security</li>
-                    </ul>
-                </div>
-
-                <div class="p-10 border border-gray-200 dark:border-gray-800 rounded-3xl transition duration-500 text-center group hover:border-red-600">
-                    <div class="text-black dark:text-white mb-6 text-6xl transition duration-500 group-hover:text-red-600">
-                        <i class="fa-solid fa-hand-holding-medical"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4 text-black dark:text-white transition duration-500 group-hover:text-red-600">
-                        Additional Services
-                    </h3>
-                    <ul class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 inline-block text-left">
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Professional Data Recovery</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>On-site / Home service</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Pick-up & Delivery service</li>
-                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Consultation & diagnostics</li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
-
-
-
-        <section x-show="activeTab === 'careers'" x-transition>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                <div>
-                    <h2 class="text-6xl font-bold leading-tight mb-6 tracking-tighter">Join our <br>talented team.</h2>
-                    <p class="text-gray-600 dark:text-gray-400 text-lg max-w-sm">We are always looking for passionate people to join our digital agency.</p>
-                </div>
-                <div class="space-y-6">
-                    <a href="#" class="group flex justify-between items-center border border-gray-200 dark:border-gray-700 rounded-full px-10 py-6 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-500 shadow-sm">
-                        <span class="text-xl font-semibold">Hardware & Software Services</span>
-                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-3 transition-transform"></i>
-                    </a>
-                    <a href="#" class="group flex justify-between items-center border border-gray-200 dark:border-gray-700 rounded-full px-10 py-6 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-500 shadow-sm">
-                        <span class="text-xl font-semibold">Other Services</span>
-                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-3 transition-transform"></i>
+                    <a href="https://wa.me/62821xxxxxxxx" target="_blank"
+                        class="flex items-center justify-center gap-3 w-full py-5 bg-[#25D366] hover:bg-[#20ba5a] text-white rounded-2xl font-bold text-xl transition-all hover:scale-[1.02] shadow-lg shadow-green-500/20">
+                        <i class="fa-brands fa-whatsapp text-3xl"></i>
+                        Chat WhatsApp Sekarang
                     </a>
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
-                <img src="./assets/images/teknisi-perempuan-instalasi-sistem-operasi.webp" class="rounded-3xl w-full h-[550px] object-cover shadow-2xl">
-                <img src="./assets/images/teknisi-pria-rakit-komputer-pc.webp" class="rounded-3xl w-full h-[550px] object-cover shadow-2xl">
-            </div>
-        </section>
 
-        
-        
-        <section x-show="activeTab === 'contact'" x-transition class="py-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-                
-                <div class="bg-gray-50 dark:bg-gray-800/30 p-12 rounded-3xl border border-gray-100 dark:border-gray-800 flex flex-col justify-center">
-                    <h2 class="text-4xl font-bold mb-8">Connect With Us</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg">
-                        Follow our social media or reach out directly via WhatsApp for fast response.
+                <div class="bg-gray-50 dark:bg-gray-800/40 p-8 rounded-3xl border border-gray-100 dark:border-gray-700">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-[#D4AF37]"></i> Jam Operasional
+                    </h3>
+                    <div class="space-y-4">
+                        <template x-for="jadwal in [
+                    { hari: 'Senin - Jumat', jam: '09:00 - 18:00' },
+                    { hari: 'Sabtu', jam: '10:00 - 16:00' },
+                    { hari: 'Minggu / Tanggal Merah', jam: 'Tutup' }
+                ]">
+                            <div class="flex justify-between border-b border-gray-200 dark:border-gray-700 pb-2">
+                                <span class="text-sm font-medium text-gray-500" x-text="jadwal.hari"></span>
+                                <span class="text-sm font-bold" :class="jadwal.jam === 'Tutup' ? 'text-red-500' : ''"
+                                    x-text="jadwal.jam"></span>
+                            </div>
+                        </template>
+                    </div>
+                    <p class="mt-6 text-[10px] text-gray-400 uppercase tracking-widest text-center italic">
+                        * Jam buka dapat berubah saat hari raya
                     </p>
-                    
-                    <div class="space-y-6">
-                        <a href="#" class="flex items-center gap-4 group p-2">
-                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
-                                <i class="fa-brands fa-whatsapp text-2xl"></i>
-                            </div>
-                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">WhatsApp</span>
-                        </a>
-
-                        <a href="#" class="flex items-center gap-4 group p-2">
-                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
-                                <i class="fa-brands fa-instagram text-2xl"></i>
-                            </div>
-                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">Instagram</span>
-                        </a>
-
-                        <a href="#" class="flex items-center gap-4 group p-2">
-                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
-                                <i class="fa-brands fa-facebook-f text-2xl"></i>
-                            </div>
-                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">Facebook</span>
-                        </a>
-
-                        <a href="#" class="flex items-center gap-4 group p-2">
-                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
-                                <i class="fa-brands fa-youtube text-2xl"></i>
-                            </div>
-                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">YouTube</span>
-                        </a>
-                    </div>
                 </div>
 
-                <div class="w-full h-[500px] md:h-auto rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-xl">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174379.64069204594!2d140.59862572943055!3d-2.5651354007061786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686c581e4ec6ff6b%3A0x26030bfcc0920592!2sJayapura%2C%20Kota%20Jayapura%2C%20Papua!5e1!3m2!1sid!2sid!4v1768989925665!5m2!1sid!2sid" width="100%" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div
+                    class="h-[350px] rounded-3xl overflow-hidden border-2 border-gray-100 dark:border-gray-800 shadow-inner group">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3985.7447234676615!2d140.635!3d-2.589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMsKwMzUnMjAuNCJTIDE0MMKwMzgnMDYuMCJF!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        class="grayscale-[0.5] contrast-[1.1] group-hover:grayscale-0 transition-all duration-700">
+                    </iframe>
                 </div>
 
             </div>
         </section>
+
+
 
 
 
     </main>
 
-    <footer class="py-12 border-t border-gray-100 dark:border-gray-900 mt-24">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 items-center gap-8">
-            
-            <div class="text-gray-400 text-sm font-medium text-center md:text-left">
-                &copy; 2024 Jayapura Service. All rights reserved.
+    <nav
+        class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/95 dark:bg-[#0d121f]/95 backdrop-blur-md border-t border-gray-100 dark:border-gray-800 px-2 pb-2">
+        <div class="flex justify-around items-center h-16">
+            <template x-for="item in [
+                {id: 'services', icon: 'fa-screwdriver-wrench', label: 'Layanan'},
+                {id: 'gallery', icon: 'fa-images', label: 'Galeri'},
+                {id: 'about', icon: 'fa-circle-info', label: 'Tentang'},
+                {id: 'contact', icon: 'fa-comment-dots', label: 'Kontak'}
+            ]">
+                <button @click="activeTab = item.id"
+                    class="flex flex-col items-center justify-center w-full transition-all duration-300"
+                    :class="activeTab === item.id ? 'text-[#D4AF37]' : 'text-gray-400'">
+                    <i class="fa-solid text-lg mb-1" :class="item.icon"></i>
+                    <span class="text-[10px] font-bold uppercase tracking-tighter" x-text="item.label"></span>
+                </button>
+            </template>
+        </div>
+    </nav>
+
+
+
+
+    <footer class="hidden md:block py-12 border-t border-gray-100 dark:border-gray-900 mt-24">
+        <div class="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+
+            <div class="text-gray-400 text-sm text-center md:text-left">
+                © 2026 <span class="font-semibold text-gray-600 dark:text-gray-300">Jayapura Service</span>.
             </div>
 
-            <div class="flex justify-center items-center gap-6">
-                <a href="#" class="text-gray-400 hover:text-green-500 transition-colors text-lg">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors text-lg">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors text-lg">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="#" class="text-gray-400 hover:text-red-600 transition-colors text-lg">
-                    <i class="fa-brands fa-youtube"></i>
-                </a>
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex justify-center items-center gap-5 text-lg">
+                    <a href="#" title="WhatsApp Channel"
+                        class="text-gray-400 hover:text-[#D4AF37] transition-all hover:scale-110">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="#" title="Instagram"
+                        class="text-gray-400 hover:text-[#D4AF37] transition-all hover:scale-110">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#" title="Facebook"
+                        class="text-gray-400 hover:text-[#D4AF37] transition-all hover:scale-110">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="#" title="TikTok"
+                        class="text-gray-400 hover:text-[#D4AF37] transition-all hover:scale-110">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="#" title="YouTube"
+                        class="text-gray-400 hover:text-[#D4AF37] transition-all hover:scale-110">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+                <div class="text-gray-400 text-[11px] uppercase tracking-[0.2em] font-medium">
+                    Padang Bulan, Jayapura
+                </div>
             </div>
 
-            <div class="text-gray-400 text-sm font-medium text-center md:text-right">
-                Powered by <a href="https://nokensoft.com" class="hover:text-blue-500 transition-colors">NOKENSOFT.COM</a>
+            <div class="text-gray-400 text-sm text-center md:text-right">
+                Powered by <a href="https://nokensoft.com" target="_blank"
+                    class="hover:text-[#D4AF37] transition-colors font-medium">Nokensoft.com</a>
             </div>
 
         </div>
     </footer>
 
+
+
+
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'en', 
+                pageLanguage: 'id',
                 includedLanguages: 'id,en,ms',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: false
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+    <script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
+
 </html>

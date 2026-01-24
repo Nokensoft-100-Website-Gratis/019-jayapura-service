@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" x-data="{ darkMode: localStorage.getItem('theme') === 'light' ? false : true }" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayapura Service</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body { transition: background-color 0.3s, color 0.3s; }
+
+        /* --- CUSTOM GOOGLE TRANSLATE STYLE --- */
+        .goog-te-banner-frame.skiptranslate, .goog-logo-link, .goog-te-gadget span {
+            display: none !important;
+        }
+        body { top: 0px !important; }
+
+        #google_translate_element select {
+            background-color: transparent;
+            color: inherit;
+            border: 1px solid rgba(156, 163, 175, 0.4);
+            border-radius: 9999px;
+            padding: 6px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        #google_translate_element select:hover {
+            border-color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.05);
+        }
+
+        .dark #google_translate_element select {
+            border-color: rgba(75, 85, 99, 1);
+        }
+
+        /* Hilangkan tooltip pop-up Google */
+        .goog-te-balloon-frame { display: none !important; }
+        font { background-color: transparent !important; box-shadow: none !important; }
+    </style>
+</head>
+<body class="bg-white dark:bg-[#0d121f] text-black dark:text-white font-sans antialiased">
+    
+
+    <header class="flex justify-between items-center px-8 py-10 max-w-7xl mx-auto overflow-hidden">
+        <div class="flex flex-col">
+            <div class="text-2xl font-bold tracking-tighter leading-none mb-2 uppercase">
+                Jayapura Service
+            </div>
+            <p class="text-gray-500 dark:text-gray-400 text-xs font-medium uppercase tracking-widest mb-4">
+                Jl. Raya Abepura No. 123, Jayapura, Papua
+            </p>
+            
+            <div class="flex space-x-5 text-lg">
+                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="text-black dark:text-white hover:text-gray-500 transition-colors duration-300"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-6 flex-1 justify-end">
+            <button @click="darkMode = !darkMode; localStorage.setItem('theme', darkMode ? 'dark' : 'light')" 
+                    class="p-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition shadow-sm">
+                <i x-show="!darkMode" class="fa-solid fa-moon text-gray-800"></i>
+                <i x-show="darkMode" class="fa-solid fa-sun text-yellow-400"></i>
+            </button>
+
+            <div class="hidden md:block w-2/3 lg:w-1/2">
+                <img 
+                    src="https://cdn.dcodegroup.com/69406e2737250marvin-meyer-syto3xs06fu-unsplashjpg.jpg" 
+                    alt="Jayapura Service Banner" 
+                    class="w-full h-[100px] object-cover rounded-xl grayscale opacity-80 hover:grayscale-0 transition duration-700 shadow-lg"
+                >
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-8 py-4" x-data="{ activeTab: 'careers' }">
+        
+        <div class="flex justify-between items-end mb-12 border-b border-gray-200 dark:border-gray-800 pb-4">
+    <div class="flex space-x-8">
+        <template x-for="tab in [
+            {id: 'work', label: 'selected work'}, 
+            {id: 'services', label: 'our services'}, 
+            {id: 'careers', label: 'join careers'}, 
+            {id: 'contact', label: 'get in touch'}
+        ]">
+            <button @click="activeTab = tab.id" 
+                :class="activeTab === tab.id ? 'text-black dark:text-white font-bold' : 'text-gray-400 hover:text-black dark:hover:text-white'" 
+                class="group relative pb-4 capitalize transition-all duration-300 tracking-wide text-sm whitespace-nowrap">
+                
+                <span x-text="tab.label"></span>
+
+                <span 
+                    :class="activeTab === tab.id ? 'w-full' : 'w-0 group-hover:w-full'" 
+                    class="absolute bottom-0 left-0 h-[2px] bg-black dark:bg-white transition-all duration-300 ease-in-out">
+                </span>
+            </button>
+        </template>
+    </div>
+
+    <div class="flex items-center space-x-3 mb-3">
+        <i class="fa-solid fa-language text-gray-400"></i>
+        <div id="google_translate_element"></div>
+    </div>
+</div>
+
+        <section 
+            x-show="activeTab === 'work'" 
+            x-transition 
+            class="py-10"
+            x-data="{ galleryItems: [] }"
+            x-init="fetch('data/gallery.json').then(res => res.json()).then(data => galleryItems = data.gallery)"
+        >
+            <h2 class="text-4xl font-bold mb-12">Selected Work</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <template x-for="item in galleryItems" :key="item.id">
+                    <div class="group cursor-pointer relative overflow-hidden rounded-3xl bg-gray-100 dark:bg-gray-800 border border-gray-100 dark:border-gray-800 aspect-square">
+                        
+                        <div class="absolute inset-0 z-20 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                            <p class="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2" x-text="item.category"></p>
+                            <h3 class="text-white text-xl font-bold leading-tight mb-2" x-text="item.title"></h3>
+                            <p class="text-gray-300 text-xs line-clamp-2" x-text="item.description"></p>
+                        </div>
+
+                        <div class="absolute inset-0 bg-black-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10"></div>
+                        
+                        <img 
+                            :src="item.image_url" 
+                            :alt="item.title"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 ease-in-out"
+                        >
+                    </div>
+                </template>
+
+            </div>
+        </section>
+
+        
+        
+
+        <section x-show="activeTab === 'services'" x-transition class="py-10">
+            <h2 class="text-4xl font-bold mb-12 text-center md:text-left">Our Expertise</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="p-10 border border-gray-200 dark:border-gray-800 rounded-3xl transition duration-500 text-center group hover:border-yellow-500">
+                    <div class="text-black dark:text-white mb-6 text-6xl transition duration-500 group-hover:text-yellow-500">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-black dark:text-white transition duration-500 group-hover:text-yellow-500">
+                        Hardware Services
+                    </h3>
+                    <ul class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 inline-block text-left">
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Component replacement</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Laptop hinge & LED repair</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Deep cleaning & Thermal paste</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Flex cable & internal repairs</li>
+                    </ul>
+                </div>
+
+                <div class="p-10 border border-gray-200 dark:border-gray-800 rounded-3xl transition duration-500 text-center group hover:border-blue-500">
+                    <div class="text-black dark:text-white mb-6 text-6xl transition duration-500 group-hover:text-blue-500">
+                        <i class="fa-solid fa-compact-disc"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-black dark:text-white transition duration-500 group-hover:text-blue-500">
+                        Software Services
+                    </h3>
+                    <ul class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 inline-block text-left">
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>OS Reinstall (Win, Linux, Mac)</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Office & productivity apps</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Driver updates & Optimization</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Antivirus & system security</li>
+                    </ul>
+                </div>
+
+                <div class="p-10 border border-gray-200 dark:border-gray-800 rounded-3xl transition duration-500 text-center group hover:border-red-600">
+                    <div class="text-black dark:text-white mb-6 text-6xl transition duration-500 group-hover:text-red-600">
+                        <i class="fa-solid fa-hand-holding-medical"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-black dark:text-white transition duration-500 group-hover:text-red-600">
+                        Additional Services
+                    </h3>
+                    <ul class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed space-y-2 inline-block text-left">
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Professional Data Recovery</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>On-site / Home service</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Pick-up & Delivery service</li>
+                        <li><i class="fa-solid fa-check mr-2 text-xs"></i>Consultation & diagnostics</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+
+
+        <section x-show="activeTab === 'careers'" x-transition>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                <div>
+                    <h2 class="text-6xl font-bold leading-tight mb-6 tracking-tighter">Join our <br>talented team.</h2>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg max-w-sm">We are always looking for passionate people to join our digital agency.</p>
+                </div>
+                <div class="space-y-6">
+                    <a href="#" class="group flex justify-between items-center border border-gray-200 dark:border-gray-700 rounded-full px-10 py-6 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-500 shadow-sm">
+                        <span class="text-xl font-semibold">Hardware & Software Services</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-3 transition-transform"></i>
+                    </a>
+                    <a href="#" class="group flex justify-between items-center border border-gray-200 dark:border-gray-700 rounded-full px-10 py-6 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all duration-500 shadow-sm">
+                        <span class="text-xl font-semibold">Other Services</span>
+                        <i class="fa-solid fa-arrow-right transform group-hover:translate-x-3 transition-transform"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-24">
+                <img src="./assets/images/teknisi-perempuan-instalasi-sistem-operasi.webp" class="rounded-3xl w-full h-[550px] object-cover shadow-2xl">
+                <img src="./assets/images/teknisi-pria-rakit-komputer-pc.webp" class="rounded-3xl w-full h-[550px] object-cover shadow-2xl">
+            </div>
+        </section>
+
+        
+        
+        <section x-show="activeTab === 'contact'" x-transition class="py-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                
+                <div class="bg-gray-50 dark:bg-gray-800/30 p-12 rounded-3xl border border-gray-100 dark:border-gray-800 flex flex-col justify-center">
+                    <h2 class="text-4xl font-bold mb-8">Connect With Us</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-10 text-lg">
+                        Follow our social media or reach out directly via WhatsApp for fast response.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <a href="#" class="flex items-center gap-4 group p-2">
+                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
+                                <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            </div>
+                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">WhatsApp</span>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-4 group p-2">
+                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
+                                <i class="fa-brands fa-instagram text-2xl"></i>
+                            </div>
+                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">Instagram</span>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-4 group p-2">
+                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
+                                <i class="fa-brands fa-facebook-f text-2xl"></i>
+                            </div>
+                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">Facebook</span>
+                        </a>
+
+                        <a href="#" class="flex items-center gap-4 group p-2">
+                            <div class="w-12 h-12 bg-black dark:bg-white flex items-center justify-center rounded-full text-white dark:text-black group-hover:bg-gray-500 group-hover:text-white transition-all duration-300">
+                                <i class="fa-brands fa-youtube text-2xl"></i>
+                            </div>
+                            <span class="font-semibold text-lg group-hover:text-gray-500 transition-colors">YouTube</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="w-full h-[500px] md:h-auto rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-xl">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d174379.64069204594!2d140.59862572943055!3d-2.5651354007061786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x686c581e4ec6ff6b%3A0x26030bfcc0920592!2sJayapura%2C%20Kota%20Jayapura%2C%20Papua!5e1!3m2!1sid!2sid!4v1768989925665!5m2!1sid!2sid" width="100%" class="w-full h-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <footer class="py-12 border-t border-gray-100 dark:border-gray-900 mt-24">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 items-center gap-8">
+            
+            <div class="text-gray-400 text-sm font-medium text-center md:text-left">
+                &copy; 2024 Jayapura Service. All rights reserved.
+            </div>
+
+            <div class="flex justify-center items-center gap-6">
+                <a href="#" class="text-gray-400 hover:text-green-500 transition-colors text-lg">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors text-lg">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors text-lg">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-red-600 transition-colors text-lg">
+                    <i class="fa-brands fa-youtube"></i>
+                </a>
+            </div>
+
+            <div class="text-gray-400 text-sm font-medium text-center md:text-right">
+                Powered by <a href="https://nokensoft.com" class="hover:text-blue-500 transition-colors">NOKENSOFT.COM</a>
+            </div>
+
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', 
+                includedLanguages: 'id,en,ms',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
